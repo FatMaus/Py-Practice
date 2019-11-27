@@ -1,0 +1,62 @@
+#Words Count
+def Main():
+    try:
+        counts=GetEn()
+    except:
+        counts=GetCn()
+    finally:
+        Out(counts)
+
+def GetEn():
+    global n
+    fo=open(n,'r')
+    file=fo.read()
+    fo.close()
+    #读取英文文件
+    txt=file.lower()
+    for c in ',./<>?;:[{]}+=_-`~!\|%^&*()$#@':
+        txt=txt.replace(c,'')
+    words=txt.split()
+    #小写并降噪
+    counts={}
+    for w in words:
+        counts[w]=counts.get(w,0)+1
+    return counts
+
+def GetCn():
+    global n
+    import jieba as j
+    fo=open(n,'r',encoding='utf-8')
+    file=fo.read()
+    fo.close()
+    words=j.lcut(file)
+    #读取中文文件并分词
+    counts={}
+    for w in words:
+        if len(w)==1:
+            continue
+        elif w=='孔明曰'or w=='诸葛亮':
+            w1='孔明'
+        else:
+            w1=w
+        counts[w1]=counts.get(w1,0)+1
+        #同义词合并，词频统计
+    excludes=open('exclude.txt','r',encoding='utf-8')
+    ex=excludes.read()
+    excludes.close()
+    ls=ex.split()
+    exclude=set(ls)
+    for e in exclude:
+        del counts[e]
+    #通过配置文件排除干扰词
+
+def Out(counts):
+    items=list(counts.items())
+    items.sort(key=lambda x:x[1],reverse=True)
+    for i in range(10):
+        word,count=items[i]
+        print('{:.<10}{:.>5}'.format(word,count))
+    #排序取词并打印
+
+n=input('输入要分析的文件名（带后缀）：')
+Main()
