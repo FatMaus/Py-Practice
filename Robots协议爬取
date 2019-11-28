@@ -1,0 +1,25 @@
+#GetRobotsText
+
+import requests
+import os
+
+website=input('')
+url='http://'+website+'/robots.txt'
+root='D://RobotsText//'
+path=root+website.split('.')[1]+'.txt'
+
+try:
+    if not os.path.exists(root):
+        os.mkdir(root)
+    if not os.path.exists(path):
+        r=requests.get(url)
+        r.raise_for_status()
+        r.encoding=r.apparent_encoding
+        with open(path,'wt') as f:
+            f.write(r.text)
+            f.close()
+            print('Get Daze!')
+    else:
+        print('file existed')
+except:
+    print('failed')
