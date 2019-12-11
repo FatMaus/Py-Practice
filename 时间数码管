@@ -1,0 +1,88 @@
+#Time_Digit
+import turtle as t
+import time
+
+def main():
+    Time = getTime()
+    drawTime(Time)
+
+def getTime():
+    localt = time.localtime()
+    Time = time.strftime('%Y年%m月%d日%H时%M分%S秒',localt)
+    return Time
+
+def drawTime(Time):
+    t.setup(1300,300)
+    t.penup()
+    t.fd(-580)
+    t.pendown()
+    t.pensize(5)
+    t.pencolor('red')
+    t.speed(0)
+    for i in Time:
+        space = 30
+        if i == '年':
+            t.pendown()
+            t.write('年',font=('Times New Roman',20,'normal'))
+            t.penup()
+            t.fd(space)
+            t.pencolor('green')
+            
+        elif i == '月':
+            t.pendown()
+            t.write('月',font=('Times New Roman',20,'normal'))
+            t.penup()
+            t.fd(space)
+            t.pencolor('blue')
+            
+        elif i == '日':
+            t.pendown()
+            t.write('日',font=('Times New Roman',20,'normal'))
+            t.penup()
+            t.fd(space)
+            t.pencolor('gray')
+        elif i == '时':
+            t.pendown()
+            t.write('时',font=('Times New Roman',20,'normal'))
+            t.penup()
+            t.fd(space)
+            
+        elif i == '分':
+            t.pendown()
+            t.write('分',font=('Times New Roman',20,'normal'))
+            t.penup()
+            t.fd(space)
+            
+        elif i == '秒':
+            t.pendown()
+            t.write('秒',font=('Times New Roman',20,'normal'))
+            t.penup()
+            t.fd(space)
+        else:
+            drawNum(eval(i))
+    
+def gap():
+    t.penup()
+    t.fd(5)
+
+def drawLine(d):
+    gap()
+    t.pendown() if d else t.penup()
+    t.fd(40)
+    gap()
+    t.rt(90)
+    
+def drawNum(n):
+    drawLine(True) if n in[2,3,4,5,6,8,9]else drawLine(False)
+    drawLine(True) if n in[0,1,3,4,5,6,7,8,9]else drawLine(False)
+    drawLine(True) if n in[0,2,3,5,6,8,9]else drawLine(False)
+    drawLine(True) if n in[0,2,6,8]else drawLine(False)
+    t.lt(90)
+    drawLine(True) if n in[0,4,5,6,8,9]else drawLine(False)
+    drawLine(True) if n in[0,2,3,5,6,7,8,9]else drawLine(False)
+    drawLine(True) if n in[0,1,2,3,4,7,8,9]else drawLine(False)
+    t.rt(180)
+    t.penup()
+    t.fd(20)
+    
+main()
