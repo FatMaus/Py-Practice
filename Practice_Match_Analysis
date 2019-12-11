@@ -1,0 +1,61 @@
+#Match_Analysis
+
+def main():
+    go = check()
+    while go in ('G','g'):
+        try:
+            n,ProA,ProB = Get()
+            RateA,RateB = Game(n,ProA,ProB)
+            PrintOut(RateA,RateB)
+        except:
+            print('Please type correctly')
+        go = check()
+
+def Get():
+    games = eval(input('输入模拟场数：'))
+    ProA = eval(input('A的战斗力（0-100）：'))
+    ProB = eval(input('B的战斗力（0-100）：'))
+    return games,ProA,ProB
+
+def Game(n,ProA,ProB):
+    winA = 0
+    winB = 0
+    for i in range(n):
+        A , B = OneGame(n,ProA,ProB)
+        winA += A
+        winB += B
+    RateA = winA/n
+    RateB = winB/n
+    return RateA,RateB
+
+def OneGame(n,ProA,ProB):
+    import random as r
+    winA , winB = 0 , 0
+    start = 'A'
+    while winA<15 and winB<15:
+        Fa , Fb = ProA*r.random() , ProB*r.random()
+        if start == 'A':
+            if Fa >= Fb:
+                winA += 1
+            elif Fa < Fb:
+                start = 'B'
+        elif start == 'B':
+            if Fa <= Fb:
+                winB += 1
+            elif Fa > Fb:
+                start = 'A'
+    if winA == 15:
+        winnerA,winnerB = 1,0
+    elif winB == 15:
+        winnerA,winnerB = 0,1
+    return winnerA,winnerB
+
+def PrintOut(RateA,RateB):
+    print('A的胜率：{:.1%}'.format(RateA))
+    print('B的胜率：{:.1%}'.format(RateB))
+
+def check():
+    goOn=input('Press G to continue:')
+    return goOn
+
+main()
