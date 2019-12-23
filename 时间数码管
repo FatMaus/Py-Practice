@@ -19,45 +19,18 @@ def drawTime(Time):
     t.pensize(5)
     t.pencolor('red')
     t.speed(0)
+    count = 0
     for i in Time:
-        space = 30
-        if i == '年':
+        keyWords = ['年','月','日','时','分','秒']
+        colorPool = ['green','blue','gray','gray','gray','black']
+        space = 35
+        if i in keyWords:
             t.pendown()
-            t.write('年',font=('Times New Roman',20,'normal'))
+            t.write(i,font=('YouYuan',20,'normal'))
             t.penup()
             t.fd(space)
-            t.pencolor('green')
-            
-        elif i == '月':
-            t.pendown()
-            t.write('月',font=('Times New Roman',20,'normal'))
-            t.penup()
-            t.fd(space)
-            t.pencolor('blue')
-            
-        elif i == '日':
-            t.pendown()
-            t.write('日',font=('Times New Roman',20,'normal'))
-            t.penup()
-            t.fd(space)
-            t.pencolor('gray')
-        elif i == '时':
-            t.pendown()
-            t.write('时',font=('Times New Roman',20,'normal'))
-            t.penup()
-            t.fd(space)
-            
-        elif i == '分':
-            t.pendown()
-            t.write('分',font=('Times New Roman',20,'normal'))
-            t.penup()
-            t.fd(space)
-            
-        elif i == '秒':
-            t.pendown()
-            t.write('秒',font=('Times New Roman',20,'normal'))
-            t.penup()
-            t.fd(space)
+            t.pencolor(colorPool[count])
+            count += 1        
         else:
             drawNum(eval(i))
     
