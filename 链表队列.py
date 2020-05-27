@@ -18,7 +18,7 @@ class QueueNode():
 class ListQueue():
     def __init__(self, front=None, rear=None):
         '''
-        两个属性，队列前端元素、队列后端元素
+        两个属性，队列前端(取出位)、队列后端(添加位)
         '''
         self.front = front
         self.rear = rear
