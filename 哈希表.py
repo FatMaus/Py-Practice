@@ -101,7 +101,8 @@ class HashMap():
     
     def remove(self, key:str):
         '''
-        删除key对应的键值对，若不存在对应键值对则返回空值
+        删除key对应的键值对，存在键值对则移除并返回值
+        若不存在对应键值对则返回空值
         '''
         # 找到键所对应的键值对
         ArrIndex = self.getIndex(key)
@@ -121,7 +122,7 @@ class HashMap():
             # 链表对接，以免断链
             prev.nextEle = head.nextEle
         else:
-            # 链表空说明首位就是，下一位移入数组方便查询
+            # prev为空意味着首位就是目标，下一位移入数组顶替位置即可
             self.Array[ArrIndex] = head.nextEle
         return head.value     
     
